@@ -1,5 +1,6 @@
 const std = @import("std");
 const lightmix = @import("lightmix");
+const du_synths = @import("drumming-uhouho_synths");
 
 const Wave = lightmix.Wave;
 const Composer = lightmix.Composer;
@@ -19,16 +20,18 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
 
             switch (options.state) {
                 .closed => {
-                    result = try options.utils.Synths.HighHat.Closed.generate(allocator, .{
+                    result = try du_synths.HighHat.Closed.gen(f128, .{
                         .amplitude = options.amplitude,
+                        .allocator = allocator,
 
                         .sample_rate = options.sample_rate,
                         .channels = options.channels,
                     });
                 },
                 .opened => {
-                    result = try options.utils.Synths.HighHat.Opened.generate(allocator, .{
+                    result = try du_synths.HighHat.Opened.gen(f128, .{
                         .amplitude = options.amplitude,
+                        .allocator = allocator,
 
                         .sample_rate = options.sample_rate,
                         .channels = options.channels,

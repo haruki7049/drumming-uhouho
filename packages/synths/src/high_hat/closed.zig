@@ -8,15 +8,16 @@ const Self = @This();
 const decay = lightmix_filters.volume.decay;
 const DecayArgs = lightmix_filters.volume.DecayArgs;
 
-pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
-    const base_samples: []const f128 = generate_closed_high_hat_samples(
+pub fn gen(comptime T: type, options: Options) !Wave(T) {
+    const base_samples: []const T = generate_closed_high_hat_samples(
+        T,
         options.amplitude,
-        allocator,
+        options.allocator,
     );
 
-    var result: Wave(f128) = Wave(f128){
+    var result: Wave(T) = Wave(T){
         .samples = base_samples,
-        .allocator = allocator,
+        .allocator = options.allocator,
         .sample_rate = options.sample_rate,
         .channels = options.channels,
     };
@@ -29,8 +30,8 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
     return result;
 }
 
-fn generate_closed_high_hat_samples(amplitude: f128, allocator: std.mem.Allocator) []const f128 {
-    var result: std.array_list.Aligned(f128, null) = .empty;
+fn generate_closed_high_hat_samples(comptime T: type, amplitude: f128, allocator: std.mem.Allocator) []const T {
+    var result: std.array_list.Aligned(T, null) = .empty;
     defer result.deinit(allocator);
 
     var prng = std.Random.DefaultPrng.init(0);
@@ -38,7 +39,7 @@ fn generate_closed_high_hat_samples(amplitude: f128, allocator: std.mem.Allocato
 
     const length: usize = 22050;
     for (0..length) |_| {
-        const v: f128 = @as(f128, (rand.float(f64) / 3 - 1.0));
+        const v: T = @as(T, (rand.float(f64) / 3 - 1.0));
         result.append(allocator, v * amplitude) catch @panic("Out of memory");
     }
 
@@ -47,6 +48,7 @@ fn generate_closed_high_hat_samples(amplitude: f128, allocator: std.mem.Allocato
 
 pub const Options = struct {
     amplitude: f128,
+    allocator: std.mem.Allocator,
 
     sample_rate: u32,
     channels: u16,
