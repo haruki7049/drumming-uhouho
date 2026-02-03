@@ -1,7 +1,7 @@
 # drumming-uhouho
 
 ```sh
-zig build run
+zig build
 ```
 
 ## Zig version
