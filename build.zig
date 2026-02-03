@@ -7,6 +7,7 @@ pub fn build(b: *std.Build) !void {
 
     const lightmix = b.dependency("lightmix", .{});
     const lightmix_filters = b.dependency("lightmix_filters", .{});
+    const lightmix_synths = b.dependency("lightmix_synths", .{});
 
     const mod = b.createModule(.{
         .root_source_file = b.path("src/root.zig"),
@@ -15,6 +16,7 @@ pub fn build(b: *std.Build) !void {
         .imports = &.{
             .{ .name = "lightmix", .module = lightmix.module("lightmix") },
             .{ .name = "lightmix_filters", .module = lightmix_filters.module("lightmix_filters") },
+            .{ .name = "lightmix_synths", .module = lightmix_synths.module("lightmix_synths") },
         },
     });
 

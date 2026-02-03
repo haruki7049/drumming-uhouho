@@ -1,6 +1,7 @@
 const std = @import("std");
 const lightmix = @import("lightmix");
 const lightmix_filters = @import("lightmix_filters");
+const lightmix_synths = @import("lightmix_synths");
 
 const Wave = lightmix.Wave;
 const Composer = lightmix.Composer;
@@ -21,10 +22,11 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
         defer wave_list.deinit(allocator);
 
         for (0..7) |_| {
-            var result: Wave(f128) = try options.utils.Synths.Sine.generate(allocator, .{
+            var result: Wave(f128) = try lightmix_synths.Basic.Sine.gen(f128, .{
                 .frequency = options.frequency,
                 .length = samples_per_beat,
                 .amplitude = options.amplitude,
+                .allocator = allocator,
 
                 .sample_rate = options.sample_rate,
                 .channels = options.channels,
@@ -55,10 +57,11 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
         defer wave_list.deinit(allocator);
 
         for (0..2) |_| {
-            var result: Wave(f128) = try options.utils.Synths.Sine.generate(allocator, .{
+            var result: Wave(f128) = try lightmix_synths.Basic.Sine.gen(f128, .{
                 .frequency = options.frequency,
                 .length = samples_per_beat,
                 .amplitude = options.amplitude,
+                .allocator = allocator,
 
                 .sample_rate = options.sample_rate,
                 .channels = options.channels,
