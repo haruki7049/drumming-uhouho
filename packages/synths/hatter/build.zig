@@ -9,7 +9,7 @@ pub fn build(b: *std.Build) !void {
     const lightmix_filters = b.dependency("lightmix_filters", .{});
     const lightmix_synths = b.dependency("lightmix_synths", .{});
 
-    const mod = b.addModule("drumming-uhouho_synths", .{
+    const mod = b.addModule("hatter", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,

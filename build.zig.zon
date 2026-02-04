@@ -17,7 +17,7 @@
             .url = "https://github.com/haruki7049/lightmix_synths/archive/refs/tags/0.2.1.tar.gz",
             .hash = "lightmix_synths-0.2.1-6UeSjLneigCnYK-I-eiwtyA03mauljPMbDNVSYUfAlem",
         },
-        .du_synths = .{ .path = "packages/synths" },
+        .hatter = .{ .path = "packages/synths/hatter" },
     },
 
     .paths = .{

@@ -1,7 +1,7 @@
 .{
-    .name = .du_synths,
+    .name = .hatter,
     .version = "0.0.0",
-    .fingerprint = 0x43f6bee8d43f98f7,
+    .fingerprint = 0xe0130adc5965baff,
     .minimum_zig_version = "0.15.2",
 
     .dependencies = .{

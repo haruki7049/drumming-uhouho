@@ -1,6 +1,6 @@
 const std = @import("std");
 const lightmix = @import("lightmix");
-const du_synths = @import("drumming-uhouho_synths");
+const hatter = @import("hatter");
 
 const Wave = lightmix.Wave;
 const Composer = lightmix.Composer;
@@ -20,7 +20,7 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
 
             switch (options.state) {
                 .closed => {
-                    result = try du_synths.HighHat.Closed.gen(f128, .{
+                    result = try hatter.Closed.gen(f128, .{
                         .amplitude = options.amplitude,
                         .allocator = allocator,
 
@@ -29,7 +29,7 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
                     });
                 },
                 .opened => {
-                    result = try du_synths.HighHat.Opened.gen(f128, .{
+                    result = try hatter.Opened.gen(f128, .{
                         .amplitude = options.amplitude,
                         .allocator = allocator,
 
