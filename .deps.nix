@@ -29,6 +29,13 @@ linkFarm "zig-packages" [
     };
   }
   {
+    name = "lightmix_temperaments-0.1.0-Wz2gpkESAABVErWSskD2CFYtt5FDhNSCVr1QV68Zxlrf";
+    path = fetchzip {
+      url = "https://github.com/haruki7049/lightmix_temperaments/archive/refs/tags/0.1.0.tar.gz";
+      hash = "sha256-gcBYo1gjff7+leZzIg4XmKn7iTyobiZ1+oktC0U7P1I=";
+    };
+  }
+  {
     name = "riff_zig-0.2.1-J7H0A0x-AABK0wyA5y4uQxq5x95-RTPUGIwWd61cBTw7";
     path = fetchzip {
       url = "https://github.com/haruki7049/RIFF.zig/archive/refs/tags/0.2.1.tar.gz";
