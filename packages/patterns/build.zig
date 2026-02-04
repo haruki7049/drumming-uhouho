@@ -8,11 +8,8 @@ pub fn build(b: *std.Build) !void {
     const lightmix = b.dependency("lightmix", .{});
     const lightmix_filters = b.dependency("lightmix_filters", .{});
     const lightmix_synths = b.dependency("lightmix_synths", .{});
-    const lightmix_temperaments = b.dependency("lightmix_temperaments", .{});
-    const hatter = b.dependency("hatter", .{});
-    const du_patterns = b.dependency("du_patterns", .{});
 
-    const mod = b.createModule(.{
+    const mod = b.addModule("du_patterns", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
@@ -20,17 +17,8 @@ pub fn build(b: *std.Build) !void {
             .{ .name = "lightmix", .module = lightmix.module("lightmix") },
             .{ .name = "lightmix_filters", .module = lightmix_filters.module("lightmix_filters") },
             .{ .name = "lightmix_synths", .module = lightmix_synths.module("lightmix_synths") },
-            .{ .name = "lightmix_temperaments", .module = lightmix_temperaments.module("lightmix_temperaments") },
-            .{ .name = "hatter", .module = hatter.module("hatter") },
-            .{ .name = "du_patterns", .module = du_patterns.module("du_patterns") },
         },
     });
-
-    const wave_step = try l.createWave(b, mod, .{
-        .func_name = "gen",
-        .wave = .{ .bits = 16, .format_code = .pcm },
-    });
-    b.getInstallStep().dependOn(wave_step);
 
     // Unit tests
     const unit_tests = b.addTest(.{ .root_module = mod });

@@ -11,7 +11,7 @@ const CutAttackArgs = lightmix_filters.volume.CutAttackArgs;
 const decay = lightmix_filters.volume.decay;
 const DecayArgs = lightmix_filters.volume.DecayArgs;
 
-pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !Wave(f128) {
+pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
     const samples_per_beat: usize = @intFromFloat(@as(f32, @floatFromInt(60)) / @as(f32, @floatFromInt(options.bpm)) * @as(f32, @floatFromInt(options.sample_rate)));
 
     var waveinfo_list: std.array_list.Aligned(Composer(f128).WaveInfo, null) = .empty;
@@ -96,14 +96,10 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
     return try composer.finalize(.{});
 }
 
-pub fn Options(comptime Utils: type) type {
-    return struct {
-        utils: Utils,
-
-        bpm: usize,
-        frequency: f32,
-        amplitude: f32,
-        sample_rate: usize,
-        channels: usize,
-    };
-}
+pub const Options = struct {
+    bpm: usize,
+    frequency: f32,
+    amplitude: f32,
+    sample_rate: u32,
+    channels: u16,
+};
