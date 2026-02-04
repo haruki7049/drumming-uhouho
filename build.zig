@@ -8,6 +8,7 @@ pub fn build(b: *std.Build) !void {
     const lightmix = b.dependency("lightmix", .{});
     const lightmix_filters = b.dependency("lightmix_filters", .{});
     const lightmix_synths = b.dependency("lightmix_synths", .{});
+    const lightmix_temperaments = b.dependency("lightmix_temperaments", .{});
     const hatter = b.dependency("hatter", .{});
 
     const mod = b.createModule(.{
@@ -18,6 +19,7 @@ pub fn build(b: *std.Build) !void {
             .{ .name = "lightmix", .module = lightmix.module("lightmix") },
             .{ .name = "lightmix_filters", .module = lightmix_filters.module("lightmix_filters") },
             .{ .name = "lightmix_synths", .module = lightmix_synths.module("lightmix_synths") },
+            .{ .name = "lightmix_temperaments", .module = lightmix_temperaments.module("lightmix_temperaments") },
             .{ .name = "hatter", .module = hatter.module("hatter") },
         },
     });

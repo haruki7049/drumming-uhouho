@@ -1,8 +1,10 @@
 const std = @import("std");
 const lightmix = @import("lightmix");
+const lightmix_temperaments = @import("lightmix_temperaments");
 
 const Wave = lightmix.Wave;
 const Composer = lightmix.Composer;
+const Scale = lightmix_temperaments.TwelveEqualTemperament;
 
 fn Options(comptime Utils: type) type {
     return struct {
@@ -23,7 +25,7 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
         .{
             .wave = try options.utils.Generators.Drum.Base.A.generate(allocator, .{
                 .utils = options.utils,
-                .frequency = options.utils.Scale.generate_freq(.{ .code = .c, .octave = 2 }),
+                .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
                 .sample_rate = options.sample_rate,
@@ -34,7 +36,7 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
         .{
             .wave = try options.utils.Generators.Drum.Base.A.generate(allocator, .{
                 .utils = options.utils,
-                .frequency = options.utils.Scale.generate_freq(.{ .code = .c, .octave = 2 }),
+                .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
                 .sample_rate = options.sample_rate,
@@ -45,7 +47,7 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
         .{
             .wave = try options.utils.Generators.Drum.Base.A.generate(allocator, .{
                 .utils = options.utils,
-                .frequency = options.utils.Scale.generate_freq(.{ .code = .c, .octave = 2 }),
+                .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
                 .sample_rate = options.sample_rate,
@@ -67,7 +69,7 @@ pub fn generate(allocator: std.mem.Allocator, comptime options: Options(type)) !
         .{
             .wave = try options.utils.Generators.Drum.Base.A.generate(allocator, .{
                 .utils = options.utils,
-                .frequency = options.utils.Scale.generate_freq(.{ .code = .c, .octave = 2 }),
+                .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
                 .sample_rate = options.sample_rate,

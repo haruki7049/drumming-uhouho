@@ -18,6 +18,10 @@
             .hash = "lightmix_synths-0.2.1-6UeSjLneigCnYK-I-eiwtyA03mauljPMbDNVSYUfAlem",
         },
         .hatter = .{ .path = "packages/synths/hatter" },
+        .lightmix_temperaments = .{
+            .url = "https://github.com/haruki7049/lightmix_temperaments/archive/refs/tags/0.1.0.tar.gz",
+            .hash = "lightmix_temperaments-0.1.0-Wz2gpkESAABVErWSskD2CFYtt5FDhNSCVr1QV68Zxlrf",
+        },
     },
 
     .paths = .{
