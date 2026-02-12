@@ -20,6 +20,12 @@ pub fn build(b: *std.Build) !void {
         },
     });
 
+    // Sample generation
+    const wave_step = try l.createWave(b, mod, .{
+        .wave = .{ .bits = 16, .format_code = .pcm },
+    });
+    b.getInstallStep().dependOn(wave_step);
+
     // Unit tests
     const unit_tests = b.addTest(.{ .root_module = mod });
     const run_unit_tests = b.addRunArtifact(unit_tests);
