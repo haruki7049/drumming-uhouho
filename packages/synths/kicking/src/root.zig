@@ -13,7 +13,7 @@ pub fn gen(comptime T: type, options: Options) !Wave(T) {
     var drum: Wave(f128) = try lightmix_synths.Basic.Sine.gen(f128, .{
         .frequency = options.frequency,
         .length = options.length,
-        .amplitude = options.amplitude * 2.0,
+        .amplitude = options.amplitude,
         .allocator = options.allocator,
         .sample_rate = options.sample_rate,
         .channels = options.channels,
@@ -24,9 +24,6 @@ pub fn gen(comptime T: type, options: Options) !Wave(T) {
     }
     for (0..12) |_| {
         try drum.filter_with(DecayArgs, decay, .{});
-    }
-    for (0..1) |_| {
-        try drum.filter(normalize);
     }
 
     return drum;
@@ -46,7 +43,7 @@ pub fn testwave_gen() !Wave(f128) {
 
     var result: Wave(f128) = try gen(f128, .{
         .allocator = allocator,
-        .frequency = 55.0,
+        .frequency = 110.0,
         .length = 44100,
         .amplitude = 1.0,
         .sample_rate = 44100,
