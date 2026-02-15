@@ -5,9 +5,7 @@ const Wave = lightmix.Wave;
 
 pub const Closed = @import("./closed.zig");
 
-pub fn gen() !Wave(f128) {
-    const allocator = std.heap.page_allocator;
-
+pub fn gen(allocator: std.mem.Allocator) !Wave(f128) {
     var closed: Wave(f128) = try Closed.gen(f128, .{
         .amplitude = 1.0,
         .allocator = allocator,

@@ -21,10 +21,15 @@ pub fn build(b: *std.Build) !void {
     });
 
     // Sample generation
-    const wave_step = try l.createWave(b, mod, .{
+    const wave = try l.addWave(b, mod, .{
         .wave = .{ .bits = 16, .format_code = .pcm },
     });
-    b.getInstallStep().dependOn(wave_step);
+    l.installWave(b, wave);
+
+    // Sample play step
+    const play_step = b.step("play", "Play generated sample audio source");
+    const play = try l.addPlay(b, wave, .{});
+    play_step.dependOn(&play.step);
 
     // Unit tests
     const unit_tests = b.addTest(.{ .root_module = mod });
