@@ -4,7 +4,7 @@ const lightmix = @import("lightmix");
 const Wave = lightmix.Wave;
 const Composer = lightmix.Composer;
 
-pub fn generate(comptime S: type, options: Options) !Wave(f128) {
+pub fn gen(comptime S: type, options: Options) !Wave(f128) {
     const samples_per_beat: usize = @intFromFloat(@as(f32, @floatFromInt(60)) / @as(f32, @floatFromInt(options.bpm)) * @as(f32, @floatFromInt(options.sample_rate)));
 
     var waveinfo_list: std.array_list.Aligned(Composer(f128).WaveInfo, null) = .empty;

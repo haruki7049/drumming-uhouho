@@ -17,12 +17,12 @@ pub const Options = struct {
     channels: u16,
 };
 
-pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
+pub fn gen(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
     const samples_per_beat: usize = @intFromFloat(@as(f32, @floatFromInt(60)) / @as(f32, @floatFromInt(options.bpm)) * @as(f32, @floatFromInt(options.sample_rate)));
 
     const melodies: []const Composer(f128).WaveInfo = &.{
         .{
-            .wave = try du_patterns.Base.A.generate(lightmix_synths.Basic.Sine, .{
+            .wave = try du_patterns.Base.A.gen(lightmix_synths.Basic.Sine, .{
                 .allocator = allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
@@ -33,7 +33,7 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .start_point = samples_per_beat * 0,
         },
         .{
-            .wave = try du_patterns.Base.A.generate(lightmix_synths.Basic.Sine, .{
+            .wave = try du_patterns.Base.A.gen(lightmix_synths.Basic.Sine, .{
                 .allocator = allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
@@ -44,7 +44,7 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .start_point = samples_per_beat * 8,
         },
         .{
-            .wave = try du_patterns.Base.A.generate(lightmix_synths.Basic.Sine, .{
+            .wave = try du_patterns.Base.A.gen(lightmix_synths.Basic.Sine, .{
                 .allocator = allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
@@ -55,7 +55,7 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .start_point = samples_per_beat * 16,
         },
         .{
-            .wave = try du_patterns.Base.OffBeats.generate(hatter.Closed, .{
+            .wave = try du_patterns.Base.OffBeats.gen(hatter.Closed, .{
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
                 .allocator = allocator,
@@ -65,7 +65,7 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .start_point = samples_per_beat * 16,
         },
         .{
-            .wave = try du_patterns.Base.A.generate(lightmix_synths.Basic.Sine, .{
+            .wave = try du_patterns.Base.A.gen(lightmix_synths.Basic.Sine, .{
                 .allocator = allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
@@ -76,7 +76,7 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .start_point = samples_per_beat * 24,
         },
         .{
-            .wave = try du_patterns.Base.OffBeats.generate(hatter.Closed, .{
+            .wave = try du_patterns.Base.OffBeats.gen(hatter.Closed, .{
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
                 .allocator = allocator,
