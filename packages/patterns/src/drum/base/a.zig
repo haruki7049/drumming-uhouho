@@ -17,6 +17,10 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
     var waveinfo_list: std.array_list.Aligned(Composer(f128).WaveInfo, null) = .empty;
     defer waveinfo_list.deinit(allocator);
 
+    defer for (waveinfo_list.items) |waveinfo| {
+        waveinfo.wave.deinit();
+    };
+
     {
         var wave_list: std.array_list.Aligned(Wave(f128), null) = .empty;
         defer wave_list.deinit(allocator);

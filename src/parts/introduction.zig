@@ -82,6 +82,12 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
         },
     };
 
+    defer {
+        for (melodies) |melody| {
+            melody.wave.deinit();
+        }
+    }
+
     const composer: Composer(f128) = try Composer(f128).init_with(melodies, allocator, .{
         .sample_rate = options.sample_rate,
         .channels = options.channels,
