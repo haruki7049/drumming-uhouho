@@ -20,6 +20,13 @@ pub fn build(b: *std.Build) !void {
         },
     });
 
+    const lib = b.addLibrary(.{
+        .name = "du_patterns",
+        .root_module = mod,
+        .linkage = .static,
+    });
+    b.installArtifact(lib);
+
     // Unit tests
     const unit_tests = b.addTest(.{ .root_module = mod });
     const run_unit_tests = b.addRunArtifact(unit_tests);
