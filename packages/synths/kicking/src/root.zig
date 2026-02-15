@@ -38,9 +38,7 @@ pub const Options = struct {
     channels: u16,
 };
 
-pub fn testwave_gen() !Wave(f128) {
-    const allocator = std.heap.page_allocator;
-
+pub fn testwave_gen(allocator: std.mem.Allocator) !Wave(f128) {
     var result: Wave(f128) = try gen(f128, .{
         .allocator = allocator,
         .frequency = 110.0,

@@ -21,11 +21,11 @@ pub fn build(b: *std.Build) !void {
     });
 
     // Sample generation
-    const wave_step = try l.createWave(b, mod, .{
+    const wave = try l.addWave(b, mod, .{
         .func_name = "testwave_gen",
         .wave = .{ .bits = 16, .format_code = .pcm },
     });
-    b.getInstallStep().dependOn(wave_step);
+    l.installWave(b, wave);
 
     // Unit tests
     const unit_tests = b.addTest(.{ .root_module = mod });
