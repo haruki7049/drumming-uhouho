@@ -32,7 +32,6 @@ pub fn gen(comptime T: type, options: Options) !Wave(T) {
 
 fn generate_closed_high_hat_samples(comptime T: type, amplitude: f128, allocator: std.mem.Allocator) []const T {
     var result: std.array_list.Aligned(T, null) = .empty;
-    defer result.deinit(allocator);
 
     var prng = std.Random.DefaultPrng.init(0);
     const rand = prng.random();

@@ -7,9 +7,7 @@ const WaveInfo = Composer.WaveInfo;
 
 const Parts = @import("./parts.zig");
 
-pub fn gen() !Wave(f128) {
-    const allocator = std.heap.page_allocator;
-
+pub fn gen(allocator: std.mem.Allocator) !Wave(f128) {
     var introduction: Wave(f128) = try Parts.Introduction.generate(allocator, .{
         .bpm = 170,
         .amplitude = 1.0,

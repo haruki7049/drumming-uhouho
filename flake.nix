@@ -81,6 +81,11 @@
               # Zon2nix
               pkgs.zon2nix
             ];
+
+            shellHook = ''
+              # Remove NIX_CFLAGS_COMPILE
+              unset NIX_CFLAGS_COMPILE
+            '';
           };
         };
     };
