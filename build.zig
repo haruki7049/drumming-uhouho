@@ -26,12 +26,14 @@ pub fn build(b: *std.Build) !void {
         },
     });
 
+    // Wave installation
     const wave = try l.addWave(b, mod, .{
         .func_name = "gen",
         .wave = .{ .bits = 16, .format_code = .pcm },
     });
     l.installWave(b, wave);
 
+    // Wave playing
     const play_step = b.step("play", "Play the produced Wave file");
     const play = try l.addPlay(b, wave, .{});
     play_step.dependOn(&play.step);
