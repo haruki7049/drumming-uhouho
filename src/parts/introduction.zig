@@ -1,5 +1,6 @@
 const std = @import("std");
 const lightmix = @import("lightmix");
+const lightmix_synths = @import("lightmix_synths");
 const lightmix_temperaments = @import("lightmix_temperaments");
 const hatter = @import("hatter");
 const du_patterns = @import("du_patterns");
@@ -21,7 +22,8 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
 
     const melodies: []const Composer(f128).WaveInfo = &.{
         .{
-            .wave = try du_patterns.Drum.Base.A.generate(allocator, .{
+            .wave = try du_patterns.Drum.Base.A.generate(lightmix_synths.Basic.Sine, .{
+                .allocator = allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
@@ -31,7 +33,8 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .start_point = samples_per_beat * 0,
         },
         .{
-            .wave = try du_patterns.Drum.Base.A.generate(allocator, .{
+            .wave = try du_patterns.Drum.Base.A.generate(lightmix_synths.Basic.Sine, .{
+                .allocator = allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
@@ -41,7 +44,8 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .start_point = samples_per_beat * 8,
         },
         .{
-            .wave = try du_patterns.Drum.Base.A.generate(allocator, .{
+            .wave = try du_patterns.Drum.Base.A.generate(lightmix_synths.Basic.Sine, .{
+                .allocator = allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
@@ -61,7 +65,8 @@ pub fn generate(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .start_point = samples_per_beat * 16,
         },
         .{
-            .wave = try du_patterns.Drum.Base.A.generate(allocator, .{
+            .wave = try du_patterns.Drum.Base.A.generate(lightmix_synths.Basic.Sine, .{
+                .allocator = allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
