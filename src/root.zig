@@ -8,10 +8,10 @@ const WaveInfo = Composer.WaveInfo;
 const Parts = @import("./parts.zig");
 
 pub fn gen(allocator: std.mem.Allocator) !Wave(f128) {
-    var introduction: Wave(f128) = try Parts.Introduction.gen(allocator, .{
+    var introduction: Wave(f128) = try Parts.Introduction.gen(f128, .{
         .bpm = 170,
         .amplitude = 1.0,
-
+        .allocator = allocator,
         .sample_rate = 44100,
         .channels = 1,
     });

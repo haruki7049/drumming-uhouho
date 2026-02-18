@@ -12,18 +12,18 @@ const Scale = lightmix_temperaments.TwelveEqualTemperament;
 pub const Options = struct {
     bpm: usize,
     amplitude: f32,
-
+    allocator: std.mem.Allocator,
     sample_rate: u32,
     channels: u16,
 };
 
-pub fn gen(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
+pub fn gen(comptime T: type, options: Options) !Wave(T) {
     const samples_per_beat: usize = @intFromFloat(@as(f32, @floatFromInt(60)) / @as(f32, @floatFromInt(options.bpm)) * @as(f32, @floatFromInt(options.sample_rate)));
 
-    const melodies: []const Composer(f128).WaveInfo = &.{
+    const melodies: []const Composer(T).WaveInfo = &.{
         .{
             .wave = try du_patterns.Base.A.gen(lightmix_synths.Basic.Sine, .{
-                .allocator = allocator,
+                .allocator = options.allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
@@ -34,7 +34,7 @@ pub fn gen(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
         },
         .{
             .wave = try du_patterns.Base.A.gen(lightmix_synths.Basic.Sine, .{
-                .allocator = allocator,
+                .allocator = options.allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
@@ -45,7 +45,7 @@ pub fn gen(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
         },
         .{
             .wave = try du_patterns.Base.A.gen(lightmix_synths.Basic.Sine, .{
-                .allocator = allocator,
+                .allocator = options.allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
@@ -58,7 +58,7 @@ pub fn gen(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .wave = try du_patterns.Base.OffBeats.gen(hatter.Closed, .{
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
-                .allocator = allocator,
+                .allocator = options.allocator,
                 .sample_rate = options.sample_rate,
                 .channels = options.channels,
             }),
@@ -66,7 +66,7 @@ pub fn gen(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
         },
         .{
             .wave = try du_patterns.Base.A.gen(lightmix_synths.Basic.Sine, .{
-                .allocator = allocator,
+                .allocator = options.allocator,
                 .frequency = Scale.gen(.{ .code = .c, .octave = 2 }),
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
@@ -79,7 +79,7 @@ pub fn gen(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
             .wave = try du_patterns.Base.OffBeats.gen(hatter.Closed, .{
                 .bpm = options.bpm,
                 .amplitude = options.amplitude,
-                .allocator = allocator,
+                .allocator = options.allocator,
                 .sample_rate = options.sample_rate,
                 .channels = options.channels,
             }),
@@ -91,7 +91,7 @@ pub fn gen(allocator: std.mem.Allocator, options: Options) !Wave(f128) {
         melody.wave.deinit();
     };
 
-    const composer: Composer(f128) = try Composer(f128).init_with(melodies, allocator, .{
+    const composer: Composer(T) = try Composer(T).init_with(melodies, options.allocator, .{
         .sample_rate = options.sample_rate,
         .channels = options.channels,
     });
