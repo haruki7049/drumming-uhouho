@@ -10,7 +10,7 @@ const decay = lightmix_filters.volume.decay;
 const DecayArgs = lightmix_filters.volume.DecayArgs;
 
 pub fn gen(comptime T: type, options: Options) !Wave(T) {
-    var drum: Wave(f128) = try lightmix_synths.Basic.Sine.gen(f128, .{
+    var drum = try lightmix_synths.Basic.Sine.gen(T, .{
         .frequency = options.frequency,
         .length = options.length,
         .amplitude = options.amplitude,

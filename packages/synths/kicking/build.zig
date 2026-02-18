@@ -20,12 +20,23 @@ pub fn build(b: *std.Build) !void {
         },
     });
 
+    // Library linking on Linux
+    if (target.result.os.tag == .linux) {
+        mod.linkSystemLibrary("alsa", .{});
+        mod.linkSystemLibrary("libpulse", .{});
+        mod.linkSystemLibrary("libpipewire-0.3", .{});
+    }
+
     // Sample generation
     const wave = try l.addWave(b, mod, .{
         .func_name = "testwave_gen",
         .wave = .{ .bits = 16, .format_code = .pcm },
     });
     l.installWave(b, wave);
+
+    const play_step = b.step("play", "Play produced Wave file by lightmix");
+    const play = try l.addPlay(b, wave, .{});
+    play_step.dependOn(&play.step);
 
     // Unit tests
     const unit_tests = b.addTest(.{ .root_module = mod });
