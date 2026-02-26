@@ -26,6 +26,13 @@ pub fn build(b: *std.Build) !void {
         },
     });
 
+    // Create a static library to generate documents
+    const lib = b.addLibrary(.{
+        .name = "drumming-uhouho",
+        .root_module = mod,
+    });
+    b.installArtifact(lib);
+
     // Library linking on Linux
     if (target.result.os.tag == .linux) {
         mod.linkSystemLibrary("alsa", .{});
@@ -52,4 +59,14 @@ pub fn build(b: *std.Build) !void {
     // Test step
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_unit_tests.step);
+
+    // Docs
+    // This processes need *std.Build.Step.Compile
+    const docs_step = b.step("docs", "Emit docs");
+    const docs_install = b.addInstallDirectory(.{
+        .source_dir = lib.getEmittedDocs(),
+        .install_dir = .prefix,
+        .install_subdir = "share/lightmix/docs",
+    });
+    docs_step.dependOn(&docs_install.step);
 }
