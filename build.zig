@@ -66,7 +66,7 @@ pub fn build(b: *std.Build) !void {
     const docs_install = b.addInstallDirectory(.{
         .source_dir = lib.getEmittedDocs(),
         .install_dir = .prefix,
-        .install_subdir = "share/lightmix/docs",
+        .install_subdir = "share/drumming-uhouho/docs",
     });
     docs_step.dependOn(&docs_install.step);
 }
