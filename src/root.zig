@@ -1,3 +1,5 @@
+//! # drumming-uhouho
+
 const std = @import("std");
 const lightmix = @import("lightmix");
 
@@ -7,6 +9,8 @@ const WaveInfo = Composer.WaveInfo;
 
 const Parts = @import("./parts.zig");
 
+/// The entry point for build.zig.
+/// This function generates anyerror!Wave(f128) applied the normalize filter.
 pub fn gen(allocator: std.mem.Allocator) !Wave(f128) {
     var introduction: Wave(f128) = try Parts.Introduction.gen(f128, .{
         .bpm = 170,
@@ -20,6 +24,8 @@ pub fn gen(allocator: std.mem.Allocator) !Wave(f128) {
     return introduction;
 }
 
+/// A normalize filter.
+/// This uses the averaging process to normalize.
 fn normalize(comptime T: type, original_wave: Wave(T)) !Wave(T) {
     const allocator = original_wave.allocator;
     var result: std.array_list.Aligned(T, null) = .empty;
